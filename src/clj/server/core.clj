@@ -1,4 +1,4 @@
-(ns clj.core)
+(ns server.core)
 
 
 (defn -main [& _args]
