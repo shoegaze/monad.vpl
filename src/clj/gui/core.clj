@@ -1,9 +1,14 @@
 (ns gui.core
-  (:require [seesaw.core :refer :all]))
+  (:require [seesaw.core :refer :all]
+            [gui.controller :as c]
+            [gui.viewport :as v]))
 
 
 (defn -main [& _args]
-  (-> (frame :title "Hello"
-             :content "Hello, GUI!")
+  (native!)
+  (-> (c/c-frame)
+      pack!
+      show!)
+  (-> (v/v-frame)
       pack!
       show!))
