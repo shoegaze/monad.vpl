@@ -1,5 +1,9 @@
-(ns gui.core)
+(ns gui.core
+  (:require [seesaw.core :refer :all]))
 
 
 (defn -main [& _args]
-  (println "Hello, GUI!"))
+  (-> (frame :title "Hello"
+             :content "Hello, GUI!")
+      pack!
+      show!))

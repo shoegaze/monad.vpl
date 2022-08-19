@@ -8,7 +8,8 @@
                  "src/cljc"
                  "src/cljs"]
 
-  :dependencies [[org.clojure/clojure "1.11.1"]]
+  :dependencies [[org.clojure/clojure "1.11.1"]
+                 [seesaw "1.5.0"]]
 
   :aliases {"gui-start" ["run" "-m" "gui.core"]}
 
