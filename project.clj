@@ -3,5 +3,13 @@
   :url "https://github.com/shoegaze/plenum-vpl"
   :license {:name "The MIT License (MIT)"
             :url "https://mit-license.org/"}
+
+  :source-paths ["src/clj"
+                 "src/cljc"
+                 "src/cljs"]
+
   :dependencies [[org.clojure/clojure "1.11.1"]]
-  :repl-options {:init-ns plenum-vpl.core})
+
+  :aliases {"gui-start" ["run" "-m" "gui.core"]}
+
+  :repl-options {:init-ns server.core})
