@@ -6,10 +6,12 @@
 
 
 (defn- html-index []
-  (resource-response "index.dev.html" {:root "public"}))
+  (content-type
+    (resource-response "index.dev.html" {:root "public"})
+    "text/html"))
 
 (defroutes handler
-           (GET "/" [] (content-type (html-index) "text/html"))
+           (GET "/" [] (html-index))
            (route/not-found "404"))
 
 (def site
