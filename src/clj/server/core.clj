@@ -1,5 +1,7 @@
-(ns server.core)
+(ns server.core
+  (:require [server.head.core :as head]))
 
 
 (defn -main [& _args]
-  (println "Hello, world!"))
+  (println "Starting server...")
+  (head/start-head))
