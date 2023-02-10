@@ -11,6 +11,7 @@
   :dependencies [[org.clojure/clojure "1.11.1"]             ; Server
                  [ring/ring-core "1.9.5"]
                  [ring/ring-jetty-adapter "1.9.5"]
+                 [ring/ring-defaults "0.3.4"]
                  [seesaw "1.5.0"]                           ; > Head
                  [org.clojure/clojurescript "1.11.57"]      ; Client/Controller
                  [compojure "1.7.0"]
@@ -45,7 +46,6 @@
 
   :aliases {"serve" ["run" "-m" "server.core"]                      ; Server
             "serve-repl" ["trampoline" "cljsbuild" "repl-listen"]
-            "head-start" ["run" "-m" "server.head.core"]            ; > Head
             "client-rebuild-all" ["do" "clean," "cljsbuild" "once"] ; Client
             "client-watch-all" ["cljsbuild" "auto"]
             "client-build-dev" ["cljsbuild" "once" "dev"]

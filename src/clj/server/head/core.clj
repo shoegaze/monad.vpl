@@ -7,7 +7,6 @@
            :content "Hello, output!"))
 
 (defn start-head [& _args]
-  (println "Starting head...")
   (s/native!)
   (-> (create-frame)
       s/pack!
