@@ -8,11 +8,15 @@ body {
     margin: 0;
 }
 
-.container {
+#container,
+.interface,
+.viewport {
     position: fixed;
     width: 100%;
     height: 100%;
+}
 
+.viewport {
     background-color: blue;
 }
 
@@ -55,4 +59,34 @@ body {
 
     margin: 0;
     padding: 0;
+}
+
+.sidebar-info {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+
+    background-color: aquamarine;
+}
+
+.sidebar-info-title {
+    margin: 0;
+
+    background-color: aqua;
+}
+
+.sidebar-info-metadata {
+    margin: 0;
+
+    background-color: cadetblue;
+}
+
+.sidebar-info-description {
+    display: inline-block;
+    width: 100%;
+    height: 8em;
+
+    margin-top: 0.25em;
+
+    background-color: darkcyan;
 }
