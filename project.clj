@@ -16,7 +16,6 @@
                  [org.clojure/clojurescript "1.11.57"]      ; Client/Controller
                  [compojure "1.7.0"]
                  [hiccup "1.0.5"]
-                 [domina "1.0.3"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
                  [reagent "1.1.1"]]

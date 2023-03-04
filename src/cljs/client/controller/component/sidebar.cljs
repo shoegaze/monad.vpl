@@ -5,6 +5,7 @@
   [:div.sidebar
    [:h1.sidebar-title "Palette"]
    [:div.sidebar-container
+    ()
     [:button.sidebar-entry "{{Node 1}}"]
     [:button.sidebar-entry "{{Node 2}}"]
     [:button.sidebar-entry "{{Node 3}}"]]
