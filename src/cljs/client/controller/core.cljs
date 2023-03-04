@@ -1,11 +1,9 @@
 (ns client.controller.core
   (:require [reagent.dom :as rdom]
             [domina :refer (by-id)]
-            [client.controller.component.interface :refer (interface)]))
+            [client.controller.component.container :refer (container)]))
 
 
-; TODO
 (defn ^:export init []
-  (js/console.log "Hello, controller!")
-  (rdom/render [interface]
-               (by-id "container")))
+  (rdom/render [container]
+               (by-id "root")))

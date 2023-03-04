@@ -1,15 +1,11 @@
-body > * {
-    background-color: rgba(0.1, 0.1, 0.1, 0.25);
-}
-
 html,
 body {
     padding: 0;
     margin: 0;
 }
 
-#container,
-.interface,
+#root,
+.container,
 .viewport {
     position: fixed;
     width: 100%;

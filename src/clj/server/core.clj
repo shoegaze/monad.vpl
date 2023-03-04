@@ -20,6 +20,7 @@
   (head/start-head)
 
   ; HTTP server
+  ;  Needs to be placed last because jetty blocks the thread
   (let [host "localhost"
         port 8886
         url  (str "http://" host ":" port)]

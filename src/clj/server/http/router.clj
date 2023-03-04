@@ -5,6 +5,9 @@
             [ring.middleware.defaults :refer :all]))
 
 
+; TODO:
+;  Site mode: :dev | :pre | :prod
+;  Switch between "index.{mode}.html"
 (defn- html-index []
   (content-type
     (resource-response "index.dev.html" {:root "public"})
@@ -12,6 +15,7 @@
 
 (defroutes handler
            (GET "/" [] (html-index))
+           ;(GET "/api/TODO" [] (TODO))
            (route/not-found "404"))
 
 (def site
