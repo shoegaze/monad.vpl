@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Client: Build pre" type="LeiningenRunConfiguration" factoryName="Leiningen">
+    <option name="aliases" />
+    <option name="execution" value="LEININGEN" />
+    <module name="plenum-vpl" />
+    <option name="profiles" />
+    <option name="PROGRAM_PARAMETERS" value="client-build-pre" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <method v="2" />
+  </configuration>
+</component>
