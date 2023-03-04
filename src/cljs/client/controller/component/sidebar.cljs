@@ -1,15 +1,20 @@
-(ns client.controller.component.sidebar)
+(ns client.controller.component.sidebar
+  (:require [reagent.core :as r]))
 
+
+(defonce selected-node (r/atom nil))
 
 (defn sidebar []
   [:div.sidebar
    [:h1.sidebar-title "Palette"]
    [:div.sidebar-container
-    ()
-    [:button.sidebar-entry "{{Node 1}}"]
-    [:button.sidebar-entry "{{Node 2}}"]
-    [:button.sidebar-entry "{{Node 3}}"]]
+    (for [i (range 20)
+          :let [name (str "Node:" i)]]
+      ^{:key i} [:input.sidebar-entry {:type "button"
+                                       :value name
+                                       :on-click #(reset! selected-node {:name name})}])]
+  (when-let [name (:name @selected-node)]
    [:div.sidebar-info
-    [:h1.sidebar-info-title "{{Name}}"]
+    [:h1.sidebar-info-title name]
     [:h2.sidebar-info-metadata "{{Metadata}}"]
-    [:div.sidebar-info-description "{{Description}}"]]])
+    [:div.sidebar-info-description "{{Description}}"]])])
