@@ -1,5 +1,6 @@
 (ns server.core
   (:require [ring.adapter.jetty :as jetty]
+            [taoensso.timbre :as timbre]
             [server.http.router :as router]
             [server.runner.core :as runner]
             [server.head.core :as head]))
@@ -12,11 +13,11 @@
 ;   * :tick-rate                  ... Sets the simulation tick rate
 (defn -main [& _args]
   ; Language runner
-  (println "Starting language runner ...")
+  (timbre/info "Starting language runner")
   (runner/start-runner)
 
   ; Head
-  (println "Starting head ...")
+  (timbre/info "Starting head")
   (head/start-head)
 
   ; HTTP server
@@ -24,6 +25,6 @@
   (let [host "localhost"
         port 8886
         url  (str "http://" host ":" port)]
-    (println "Starting HTTP server at" url "...")
+    (timbre/info "Starting HTTP server at" url)
     (jetty/run-jetty router/site {:host host
                                   :port port})))

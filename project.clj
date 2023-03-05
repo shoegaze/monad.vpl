@@ -18,7 +18,9 @@
                  [hiccup "1.0.5"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
-                 [reagent "1.1.1"]]
+                 [reagent "1.1.1"]
+                 [com.taoensso/timbre "6.1.0"]              ; Shared
+                 ]
 
   :plugins [[lein-cljsbuild "1.1.8"]]
 
