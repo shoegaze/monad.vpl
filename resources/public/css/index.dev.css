@@ -27,6 +27,8 @@ body {
 }
 
 .sidebar {
+    overflow-y: auto;
+
     position: fixed;
     width: 15em;
     top: 1.5em;
