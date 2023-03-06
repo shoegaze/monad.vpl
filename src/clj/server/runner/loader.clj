@@ -47,3 +47,11 @@
             :when (.isDirectory package)]
       (timbre/info " *" (.getName package))
       (load-package! node-cache package))))
+
+
+(defn load-graph! [node-graph graph]
+  (timbre/info "Loading graph:" (.toString graph))
+  (let [graph-str  (slurp graph)
+        graph-json (json/parse-string graph-str true)]
+    ; TODO: Validate graph json
+    (reset! node-graph graph-json)))

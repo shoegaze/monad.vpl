@@ -1,5 +1,6 @@
 (ns server.core
-  (:require [ring.adapter.jetty :as jetty]
+  (:require [clojure.java.io :refer (resource)]
+            [ring.adapter.jetty :as jetty]
             [taoensso.timbre :as timbre]
             [server.http.router :as router]
             [server.runner.core :as runner]
@@ -14,7 +15,8 @@
 (defn -main [& _args]
   ; Language runner
   (timbre/info "Starting language runner")
-  (runner/start-runner (clojure.java.io/resource "server/packages"))
+  (runner/start-runner (resource "server/packages")
+                       (resource "server/graphs"))
 
   ; Head
   (timbre/info "Starting head")

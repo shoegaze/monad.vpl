@@ -1,0 +1,43 @@
+{
+  "nodes": [
+    {
+      "path": "shoegaze.one",
+      "instance-id": 0,
+      "view": {
+        "position": [0, 0]
+      }
+    },
+    {
+      "path": "shoegaze.one",
+      "instance-id": 1,
+      "view": {
+        "position": [0, 500]
+      }
+    },
+    {
+      "path": "shoegaze.add2",
+      "instance-id": 2,
+      "view": {
+        "position": [500, 250]
+      }
+    },
+    {
+      "path": "shoegaze.println",
+      "instance-id": 3,
+      "view": {
+        "position": [1000, 250]
+      }
+    }
+  ],
+  "edges": {
+    "0": [
+      [2, 0]
+    ],
+    "1": [
+      [2, 1]
+    ],
+    "2": [
+      [3, 0]
+    ]
+  }
+}
