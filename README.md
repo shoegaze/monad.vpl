@@ -6,6 +6,13 @@ A Clojure library designed to ... well, that part is up to you.
 
 FIXME
 
+## TODO
+
+* Server
+  * License page
+* Client
+  * License page
+
 ## License
 
 Copyright © 2022 FIXME
