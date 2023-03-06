@@ -14,7 +14,7 @@
 (defn -main [& _args]
   ; Language runner
   (timbre/info "Starting language runner")
-  (runner/start-runner)
+  (runner/start-runner (clojure.java.io/resource "server/packages"))
 
   ; Head
   (timbre/info "Starting head")

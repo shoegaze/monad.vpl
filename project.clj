@@ -12,6 +12,8 @@
                  [ring/ring-core "1.9.5"]
                  [ring/ring-jetty-adapter "1.9.5"]
                  [ring/ring-defaults "0.3.4"]
+                 [cheshire "5.11.0"]
+                 [clojail "1.0.6"]
                  [seesaw "1.5.0"]                           ; > Head
                  [org.clojure/clojurescript "1.11.57"]      ; Client/Controller
                  [compojure "1.7.0"]

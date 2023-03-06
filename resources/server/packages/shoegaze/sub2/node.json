@@ -1,0 +1,12 @@
+{
+  "name": "Subtract",
+  "description": "Subtracts two numbers together and outputs the result.",
+  "tags": ["math"],
+  "inputs": [
+    "number",
+    "number"
+  ],
+  "outputs": [
+    "number"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Add",
+  "description": "Adds two numbers together and outputs the result.",
+  "tags": ["math"],
+  "inputs": [
+    "number",
+    "number"
+  ],
+  "outputs": [
+    "number"
+  ],
+  "margin": [0, 0, 0, 0],
+  "padding": [0, 0, 0, 0]
+}
