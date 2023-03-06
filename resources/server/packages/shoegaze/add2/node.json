@@ -9,6 +9,8 @@
   "outputs": [
     "number"
   ],
-  "margin": [0, 0, 0, 0],
-  "padding": [0, 0, 0, 0]
+  "style": {
+    "margin": [0, 0, 0, 0],
+    "padding": [0, 0, 0, 0]
+  }
 }
