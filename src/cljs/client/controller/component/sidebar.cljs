@@ -12,7 +12,8 @@
           :let [name (str "Node:" i)]]
       ^{:key i} [:input.sidebar-entry {:type "button"
                                        :value name
-                                       :on-click #(reset! selected-node {:name name})}])]
+                                       :on-click #(reset! selected-node {:id i
+                                                                         :name name})}])]
   (when-let [name (:name @selected-node)]
    [:div.sidebar-info
     [:h1.sidebar-info-title name]
