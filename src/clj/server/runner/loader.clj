@@ -50,7 +50,7 @@
 
 
 (defn load-graph! [node-graph graph]
-  (timbre/info "Loading graph:" (.toString graph))
+  (timbre/warn "Loading graph:" (.toString graph) "without validation!")
   (let [graph-str  (slurp graph)
         graph-json (json/parse-string graph-str true)]
     ; TODO: Validate graph json

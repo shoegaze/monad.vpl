@@ -1,6 +1,6 @@
 (ns client.controller.core
   (:require [reagent.dom :as rdom]
-            [client.controller.component.container :refer (container)]))
+            [client.controller.component.container :refer [container]]))
 
 
 (defn ^:export init []

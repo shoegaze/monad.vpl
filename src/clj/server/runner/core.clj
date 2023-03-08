@@ -2,11 +2,8 @@
   (:require [clojure.core.async :refer [go]]
             [server.runner.executor :as executor]
             [server.runner.loader :as loader]
-            [taoensso.timbre :as timbre]))
-
-
-(defonce node-cache (atom nil))
-(defonce node-graph (atom nil))
+            [taoensso.timbre :as timbre]
+            [server.state :refer [node-cache node-graph]]))
 
 
 (defn start-runner [packages graphs]
@@ -26,7 +23,7 @@
 
   ; TODO: Create new executor thread
   (let [step-rate 1000/1]
-    (timbre/info "Starting executor thread ...")
+    (timbre/info "Starting executor thread")
     (go (executor/execute-loop node-cache
                                node-graph
                                step-rate))))

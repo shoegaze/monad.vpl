@@ -2,12 +2,13 @@
   (:require [taoensso.timbre :as timbre]))
 
 
-(defn dirty? [_node-cache _node-graph]
+(defn- dirty? [_node-cache _node-graph]
   true)
 
 ; TODO: Pass step-context map
-(defn step [_node-cache _node-graph]
-  (timbre/info "Stepping..."))
+(defn- step [_node-cache _node-graph]
+  ;(timbre/info "Stepping...")
+  )
 
 ; TODO: Pass execute-context map
 ; TODO: Return error code

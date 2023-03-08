@@ -1,8 +1,10 @@
 (ns server.http.router
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.util.response :refer (content-type, resource-response)]
-            [ring.middleware.defaults :refer :all]))
+            [ring.util.response :refer [content-type resource-response]]
+            [ring.middleware.defaults :refer :all]
+            [cheshire.core :as json]
+            [server.state :refer [node-cache node-graph]]))
 
 
 ; TODO:
@@ -13,10 +15,21 @@
     (resource-response "index.dev.html" {:root "public"})
     "text/html"))
 
-(defroutes handler
+(defn- api-get-node-cache []
+  {:status 200
+   :headers {"Content-Type" "text/json"}
+   :body (json/generate-string @node-cache)})
+
+(defn- api-get-node-graph []
+  {:status 200
+   :headers {"Content-Type" "text/json"}
+   :body (json/generate-string @node-graph)})
+
+(defroutes app
            (GET "/" [] (html-index))
-           ;(GET "/api/TODO" [] (TODO))
+           (GET "/api/node" [] (api-get-node-cache))
+           (GET "/api/graph" [] (api-get-node-graph))
            (route/not-found "404"))
 
-(def site
-  (wrap-defaults handler site-defaults))
+(defonce site
+         (wrap-defaults app site-defaults))

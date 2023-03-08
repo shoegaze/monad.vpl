@@ -1,5 +1,5 @@
 (ns server.core
-  (:require [clojure.java.io :refer (resource)]
+  (:require [clojure.java.io :refer [resource]]
             [ring.adapter.jetty :as jetty]
             [taoensso.timbre :as timbre]
             [server.http.router :as router]
