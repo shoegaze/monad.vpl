@@ -11,9 +11,6 @@
   (timbre/info "> Generating node cache")
   (reset! node-cache (->NodeCache {}))
 
-  (prn @node-cache)
-  ;(println (.getTypeName @node-cache))
-
   (timbre/info "> Loading nodes from directory:" (.toString packages))
   (loader/load-nodes! node-cache packages)
 
