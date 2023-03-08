@@ -3,12 +3,16 @@
             [server.runner.executor :as executor]
             [server.runner.loader :as loader]
             [taoensso.timbre :as timbre]
-            [server.state :refer [node-cache node-graph]]))
+            [server.state :refer [node-cache node-graph]]
+            [node.node-cache :refer [->NodeCache]]))
 
 
 (defn start-runner [packages graphs]
   (timbre/info "> Generating node cache")
-  (reset! node-cache {})
+  (reset! node-cache (->NodeCache {}))
+
+  (prn @node-cache)
+  ;(println (.getTypeName @node-cache))
 
   (timbre/info "> Loading nodes from directory:" (.toString packages))
   (loader/load-nodes! node-cache packages)
