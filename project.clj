@@ -30,11 +30,11 @@
   :cljsbuild {:builds
               {:dev
                {:source-paths ["src/cljs"]
-                :compiler {:output-to "resources/public/js/bundle/bundle.dev.js"
-                           :output-dir "resources/public/js/bundle"
+                :compiler {:output-dir "resources/public/js/bundle"
+                           :output-to "resources/public/js/bundle/bundle.dev.js"
                            :optimizations :whitespace
                            :pretty-print true
-                           :source-paths "resources/public/js/bundle/bundle.dev.js.map"}}
+                           :source-map "resources/public/js/bundle/bundle.dev.js.map"}}
                :pre
                {:source-paths ["src/cljs"]
                 :compiler {:output-to "resources/public/js/bundle/bundle.pre.js"
