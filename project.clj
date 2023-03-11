@@ -13,12 +13,13 @@
                  [ring/ring-core "1.9.5"]
                  [ring/ring-jetty-adapter "1.9.5"]
                  [ring/ring-defaults "0.3.4"]
+                 [compojure "1.7.0"]
                  [cheshire "5.11.0"]
                  [clojail "1.0.6"]
                  [seesaw "1.5.0"]                           ; > Head
                  [org.clojure/clojurescript "1.11.57"]      ; Client/Controller
-                 [compojure "1.7.0"]
                  [hiccup "1.0.5"]
+                 [cljs-ajax "0.8.4"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
                  [reagent "1.1.1"]
