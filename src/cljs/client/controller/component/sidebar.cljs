@@ -4,18 +4,26 @@
 
 (defonce selected-node (r/atom nil))
 
-(defn sidebar []
+(defn sidebar [node-cache]
   [:div.sidebar
    [:h1.sidebar-title "Palette"]
    [:div.sidebar-container
-    (for [i (range 20)
-          :let [name (str "Node:" i)]]
-      ^{:key i} [:input.sidebar-entry {:type "button"
-                                       :value name
-                                       :on-click #(reset! selected-node {:id i
-                                                                         :name name})}])]
-  (when-let [name (:name @selected-node)]
-   [:div.sidebar-info
-    [:h1.sidebar-info-title name]
-    [:h2.sidebar-info-metadata "{{Metadata}}"]
-    [:div.sidebar-info-description "{{Description}}"]])])
+    (when-let [cache (:cache @node-cache)]
+      (for [[id node] cache
+            :let [full-path (:full-path node)
+                  on-click  (fn []
+                              (reset! selected-node node))]]
+        ^{:key id} [:input.sidebar-entry {:type "button"
+                                          :value full-path
+                                          :on-click on-click}]))]
+   (when-let [node @selected-node]
+     (let [{full-path :full-path
+            {:keys [tags description]} :meta} node]
+       [:div.sidebar-info
+        [:h1.sidebar-info-title full-path]
+        [:h2.sidebar-info-tags
+         (map-indexed
+           (fn [i tag]
+             ^{:key i} [:span.sidebar-info-tag tag])
+           tags)]
+        [:div.sidebar-info-description description]]))])
