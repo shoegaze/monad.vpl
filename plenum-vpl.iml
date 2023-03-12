@@ -21,7 +21,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Leiningen: bultitude:0.1.6" level="project" />
-    <orderEntry type="library" name="Leiningen: cheshire:5.11.0" level="project" />
+    <orderEntry type="library" name="Leiningen: cheshire:5.10.0" level="project" />
     <orderEntry type="library" name="Leiningen: cljs-ajax:0.8.4" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/react-dom:17.0.2-0" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/react:17.0.2-0" level="project" />
@@ -32,9 +32,9 @@
     <orderEntry type="library" name="Leiningen: com.cognitect/transit-cljs:0.8.264" level="project" />
     <orderEntry type="library" name="Leiningen: com.cognitect/transit-java:1.0.362" level="project" />
     <orderEntry type="library" name="Leiningen: com.cognitect/transit-js:0.8.861" level="project" />
-    <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.core/jackson-core:2.13.3" level="project" />
-    <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.dataformat/jackson-dataformat-cbor:2.13.3" level="project" />
-    <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.dataformat/jackson-dataformat-smile:2.13.3" level="project" />
+    <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.core/jackson-core:2.8.7" level="project" />
+    <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.dataformat/jackson-dataformat-cbor:2.10.2" level="project" />
+    <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.dataformat/jackson-dataformat-smile:2.10.2" level="project" />
     <orderEntry type="library" name="Leiningen: com.fifesoft/rsyntaxtextarea:2.5.6" level="project" />
     <orderEntry type="library" name="Leiningen: com.google.javascript/closure-compiler-unshaded:v20220502" level="project" />
     <orderEntry type="library" name="Leiningen: com.googlecode.json-simple/json-simple:1.1.1" level="project" />
@@ -68,6 +68,7 @@
     <orderEntry type="library" name="Leiningen: org.clojure/core.cache:1.0.225" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.memoize:1.0.253" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.specs.alpha:0.2.62" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/data.json:2.4.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/data.priority-map:1.1.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/google-closure-library-third-party:0.0-20211011-0726fdeb" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/google-closure-library:0.0-20211011-0726fdeb" level="project" />
