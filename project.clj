@@ -10,11 +10,11 @@
 
   :dependencies [[org.clojure/clojure "1.11.1"]             ; Server
                  [org.clojure/core.async "1.6.673"]
+                 [org.clojure/data.json "2.4.0"]
                  [ring/ring-core "1.9.5"]
                  [ring/ring-jetty-adapter "1.9.5"]
                  [ring/ring-defaults "0.3.4"]
                  [compojure "1.7.0"]
-                 [cheshire "5.11.0"]
                  [clojail "1.0.6"]
                  [seesaw "1.5.0"]                           ; > Head
                  [org.clojure/clojurescript "1.11.57"]      ; Client/Controller
