@@ -2,10 +2,10 @@
 
 
 (defprotocol INodeData
-  (get-id [this]))
+  (id [this]))
 
 (defrecord NodeData [full-path meta script icons]
   INodeData
 
-  (get-id [this]
+  (id [this]
     (hash (:full-path this))))

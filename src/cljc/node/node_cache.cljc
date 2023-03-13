@@ -10,4 +10,4 @@
 
   (add-entry [_ node-data]
     (->NodeCache
-      (assoc cache (nd/get-id node-data) node-data))))
+      (assoc cache (nd/id node-data) node-data))))

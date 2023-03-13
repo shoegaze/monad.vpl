@@ -7,12 +7,13 @@
 
 
 (defn parse-meta [meta-str]
-  (json/read-str meta-str :key-fn :keyword))
+  (json/read-str meta-str :key-fn keyword))
 
 (defn load-node! [node-cache package node]
-  (let [meta       (io/file node "node.json")
-        meta-str   (slurp meta)
-        meta-json  (parse-meta meta-str)                    ; TODO: Validate json
+  (let [meta-json  (-> node
+                       (io/file "node.json")
+                       slurp
+                       parse-meta)
         script     (io/file node "core.clj")                ; TODO: Load dependencies, too
         script-str (slurp script)
         ;icons       (io/file node "icons")
@@ -53,11 +54,10 @@
 
 
 (defn parse-graph [graph-str]
-  (json/read-str graph-str :key-fn :keyword))
+  (json/read-str graph-str :key-fn keyword))
 
 (defn load-graph! [node-graph graph]
   (timbre/warn "Loading graph:" (.toString graph) "without validation!")
-  (let [graph-str  (slurp graph)
-        graph-json (parse-graph graph-str)]
+  (let [graph-json (-> graph slurp parse-graph)]
     ; TODO: Validate graph json
     (reset! node-graph graph-json)))
