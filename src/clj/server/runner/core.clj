@@ -1,10 +1,10 @@
 (ns server.runner.core
   (:require [clojure.core.async :refer [go]]
+            [taoensso.timbre :as timbre]
+            [node.node-cache :refer [->NodeCache]]
             [server.runner.executor :as executor]
             [server.runner.loader :as loader]
-            [taoensso.timbre :as timbre]
-            [server.state :refer [node-cache node-graph]]
-            [node.node-cache :refer [->NodeCache]]))
+            [server.state :refer [node-cache node-graph]]))
 
 
 (defn start-runner [packages graphs]

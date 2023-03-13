@@ -14,8 +14,9 @@
                        (io/file "node.json")
                        slurp
                        parse-meta)
-        script     (io/file node-file "core.clj")            ; TODO: Load dependencies, too
-        script-str (slurp script)
+        script-str (-> node-file
+                       (io/file "core.clj")
+                       slurp)
         ;icons       (io/file node "icons")
         ;icon-small  (slurp (io/file icons "small.png"))     ; TODO: Accept .svg files
         ;icon-medium (slurp (io/file icons "medium.png"))
