@@ -16,14 +16,18 @@
     "text/html"))
 
 (defn- api-get-node-cache []
-  {:status 200
-   :headers {"Content-Type" "text/json"}
-   :body (json/write-str @node-cache)})
+  (let [json     @node-cache
+        json-str (json/write-str json)]
+    {:status 200
+     :headers {"Content-Type" "text/json"}
+     :body json-str}))
 
 (defn- api-get-node-graph []
-  {:status 200
-   :headers {"Content-Type" "text/json"}
-   :body (json/write-str @node-graph)})
+  (let [json     @node-graph
+        json-str (json/write-str json)]
+    {:status 200
+     :headers {"Content-Type" "text/json"}
+     :body json-str}))
 
 (defroutes app
            (GET "/" [] (html-index))
