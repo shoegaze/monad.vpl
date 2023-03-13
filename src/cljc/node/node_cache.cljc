@@ -1,5 +1,5 @@
 (ns node.node-cache
-  (:require [node.node-data :as nd]))
+  (:require [node.node-model :as nd]))
 
 
 (defprotocol INodeCache
