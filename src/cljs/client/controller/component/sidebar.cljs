@@ -10,10 +10,9 @@
    [:div.sidebar-container
     (when-let [cache (:cache @node-cache)]
       (for [[id node] cache
-            :let [node-model (:model node)
-                  full-path  (:full-path node-model)
-                  on-click   (fn []
-                               (reset! selected-node node))]]
+            :let [full-path (-> node :model :full-path)
+                  on-click  (fn []
+                              (reset! selected-node node))]]
         ^{:key id} [:input.sidebar-entry {:type "button"
                                           :value full-path
                                           :on-click on-click}]))]
