@@ -1,11 +1,7 @@
 (ns node.node-model)
 
 
-(defprotocol INodeModel
-  (id [this]))
+(defprotocol INodeModel)
 
-(defrecord NodeModel [full-path meta script icons]
-  INodeModel
-
-  (id [this]
-    (hash (:full-path this))))
+(defrecord NodeModel [full-path meta script]
+  INodeModel)

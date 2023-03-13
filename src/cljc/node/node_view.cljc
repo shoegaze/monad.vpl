@@ -1,10 +1,7 @@
 (ns node.node-view)
 
 
-(defprotocol INodeView
-  )
+(defprotocol INodeView)
 
-(defrecord NodeView [transform style]
-  INodeView
-
-  )
+(defrecord NodeView [transform style icons]
+  INodeView)

@@ -1,13 +1,13 @@
 (ns node.node-cache
-  (:require [node.node-model :as nd]))
+  (:require [node.node-instance :refer [id]]))
 
 
 (defprotocol INodeCache
-  (add-entry [this node-data]))
+  (add-entry [this node]))
 
 (defrecord NodeCache [cache]
   INodeCache
 
-  (add-entry [_ node-data]
+  (add-entry [_ node]
     (->NodeCache
-      (assoc cache (nd/id node-data) node-data))))
+      (assoc cache (id node) node))))

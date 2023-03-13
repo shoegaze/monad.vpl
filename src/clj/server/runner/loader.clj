@@ -2,8 +2,10 @@
   (:require [clojure.java.io :as io]
             [clojure.data.json :as json]
             [taoensso.timbre :as timbre]
+            [node.node-cache :refer [add-entry]]
             [node.node-model :refer [->NodeModel]]
-            [node.node-cache :refer [add-entry]]))
+            [node.node-view :refer [->NodeView]]
+            [node.node-instance :refer [->NodeInstance]]))
 
 
 (defn parse-meta [meta-str]
@@ -32,11 +34,13 @@
           full-path (str package-name "." node-name)
           id        (hash full-path)
           ; HACK: Dangerous without validation!
-          node-model (->NodeModel full-path meta-json script-str {:small  icon-small
-                                                                  :medium icon-medium
-                                                                  :large  icon-large})]
+          node-model (->NodeModel full-path meta-json script-str)
+          node-view  (->NodeView nil {} {:small  icon-small
+                                         :medium icon-medium
+                                         :large  icon-large})
+          node-instance (->NodeInstance node-model node-view)]
       (timbre/warn "Loading node ( full-path:" full-path "id:" id ") without validation!")
-      (swap! node-cache add-entry node-model))))
+      (swap! node-cache add-entry node-instance))))
 
 ; TODO: Recursively read packages until max-depth
 (defn load-package! [node-cache package]
