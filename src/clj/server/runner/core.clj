@@ -2,6 +2,7 @@
   (:require [clojure.core.async :refer [go]]
             [taoensso.timbre :as timbre]
             [node.node-cache :refer [->NodeCache]]
+            [graph.node-graph :refer [->NodeGraph]]
             [server.runner.executor :as executor]
             [server.runner.loader :as loader]
             [server.state :refer [node-cache node-graph]]))
@@ -15,7 +16,7 @@
   (loader/load-nodes! node-cache packages)
 
   (timbre/info "> Generating node graph")
-  (reset! node-graph {})
+  (reset! node-graph (->NodeGraph [] []))
 
   (let [graph-uri     (.toURI graphs)
         default-graph (.resolve graph-uri "graphs/shoegaze/math.json")]
