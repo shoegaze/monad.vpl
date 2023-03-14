@@ -19,8 +19,8 @@
                        (resource "server/graphs"))
 
   ; Head
-  (timbre/info "Starting head")
-  (head/start-head)
+  ;(timbre/info "Starting head")
+  ;(head/start-head)
 
   ; HTTP server
   ;  Needs to be placed last because jetty blocks the thread
