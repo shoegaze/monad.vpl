@@ -16,7 +16,7 @@
   (loader/load-nodes! node-cache packages)
 
   (timbre/info "> Generating node graph")
-  (reset! node-graph (->NodeGraph [] []))
+  (reset! node-graph (->NodeGraph {} []))
 
   (let [graph-uri     (.toURI graphs)
         default-graph (.resolve graph-uri "graphs/shoegaze/math.json")]

@@ -1,21 +1,31 @@
 (ns server.http.router
   (:require [clojure.data.json :as json]
+            [taoensso.timbre :as timbre]
             [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.util.response :refer [content-type resource-response]]
+            [hiccup.page :refer [html5 include-css include-js]]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.defaults :refer :all]
+            [ring.middleware.cookies :refer :all]
+            [ring.middleware.anti-forgery :refer :all]
             [server.state :refer [node-cache node-graph]]))
 
 
-; TODO:
-;  Site mode: :dev | :pre | :prod
-;  Switch between "index.{mode}.html"
 (defn- html-index []
-  (content-type
-    (resource-response "index.dev.html" {:root "public"})
-    "text/html"))
+  (html5
+    [:head
+     [:title "vpl.dev"]
+     (include-css "css/index.css")]
+    [:body
+     [:div#root]
+     (anti-forgery-field)
+
+     (include-js "js/bundle/bundle.dev.js")
+     [:script "client.controller.core.init()"]
+     [:noscript "Please enable javascript in your browser to use the controller!"]]))
 
 (defn- api-get-node-cache []
+  (timbre/info "GET: /api/nodes")
   (let [json     @node-cache
         json-str (json/write-str json)]
     {:status 200
@@ -23,17 +33,38 @@
      :body json-str}))
 
 (defn- api-get-node-graph []
+  (timbre/info "GET: /api/graph")
   (let [json     @node-graph
         json-str (json/write-str json)]
     {:status 200
      :headers {"Content-Type" "text/json"}
      :body json-str}))
 
+(defn- api-post-add-graph-node []
+  (timbre/info "POST: /api/graph/node/add")
+  (let [json     @node-graph
+        json-str (json/write-str json)]
+    {:status 200
+     :headers {"Content-Type" "text/json"}
+     :body json-str}))
+
+(defn- api-post-remove-graph-node []
+  (timbre/info "POST: /api/graph/node/remove")
+  )
+
+; TODO: Add logs
 (defroutes app
            (GET "/" [] (html-index))
-           (GET "/api/node" [] (api-get-node-cache))
+           (GET "/api/nodes" [] (api-get-node-cache))
            (GET "/api/graph" [] (api-get-node-graph))
+           (POST "/api/graph/nodes/add" [] (api-post-add-graph-node))
+           (POST "/api/graph/nodes/remove" [] (api-post-remove-graph-node))
+           ;(POST "/api/graph/edges/add" [edge] (TODO))
+           ;(POST "/api/graph/edges/remove" [edge] (TODO))
            (route/not-found "404"))
 
 (defonce site
-         (wrap-defaults app site-defaults))
+         (-> app
+             (wrap-defaults site-defaults)
+             (wrap-cookies)
+             ))
