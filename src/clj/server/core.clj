@@ -3,8 +3,7 @@
             [ring.adapter.jetty :as jetty]
             [taoensso.timbre :as timbre]
             [server.http.router :as router]
-            [server.runner.core :as runner]
-            [server.head.core :as head]))
+            [server.runner.core :as runner]))
 
 
 ; TODO: Arguments:

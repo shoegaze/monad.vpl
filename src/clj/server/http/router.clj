@@ -8,6 +8,7 @@
             [ring.middleware.defaults :refer :all]
             [ring.middleware.cookies :refer :all]
             [ring.middleware.anti-forgery :refer :all]
+            [shared.graph.core :refer [add-instance remove-instance]]
             [server.state :refer [node-cache node-graph]]))
 
 
@@ -40,31 +41,39 @@
      :headers {"Content-Type" "text/json"}
      :body json-str}))
 
-(defn- api-post-add-graph-node []
-  (timbre/info "POST: /api/graph/node/add")
+(defn- api-post-add-graph-node! [node]
+  (timbre/info "POST: /api/graph/node/add" @node-graph)
+
+  (swap! node-graph add-instance node)
+
   (let [json     @node-graph
         json-str (json/write-str json)]
     {:status 200
      :headers {"Content-Type" "text/json"}
      :body json-str}))
 
-(defn- api-post-remove-graph-node []
-  (timbre/info "POST: /api/graph/node/remove")
-  )
+(defn- api-post-remove-graph-node! [node]
+  (timbre/info "POST: /api/graph/node/remove" @node-graph)
+
+  (swap! node-graph remove-instance node)
+
+  (let [json     @node-graph
+        json-str (json/write-str json)]
+    {:status 200
+     :headers {"Content-Type" "text/json"}
+     :body json-str}))
 
 ; TODO: Add logs
 (defroutes app
            (GET "/" [] (html-index))
            (GET "/api/nodes" [] (api-get-node-cache))
            (GET "/api/graph" [] (api-get-node-graph))
-           (POST "/api/graph/nodes/add" [] (api-post-add-graph-node))
-           (POST "/api/graph/nodes/remove" [] (api-post-remove-graph-node))
+           (POST "/api/graph/nodes/add"    [instance] (api-post-add-graph-node! instance))
+           (POST "/api/graph/nodes/remove" [instance] (api-post-remove-graph-node! instance))
            ;(POST "/api/graph/edges/add" [edge] (TODO))
            ;(POST "/api/graph/edges/remove" [edge] (TODO))
            (route/not-found "404"))
 
 (defonce site
          (-> app
-             (wrap-defaults site-defaults)
-             (wrap-cookies)
-             ))
+             (wrap-defaults site-defaults)))

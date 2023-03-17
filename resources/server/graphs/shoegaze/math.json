@@ -1,43 +1,53 @@
 {
-  "nodes": [
+  "instances": [
     {
-      "path": "shoegaze.one",
       "instance-id": 0,
+      "full-path": "shoegaze.one",
       "view": {
-        "position": [0, 0]
+        "transform": {
+          "translation": [0, 0],
+          "scale": [1, 1]
+        },
+        "style": {}
       }
     },
     {
-      "path": "shoegaze.one",
       "instance-id": 1,
+      "full-path": "shoegaze.one",
       "view": {
-        "position": [0, 500]
+        "transform": {
+          "translation": [0, 500],
+          "scale": [1, 1]
+        },
+        "style": {}
       }
     },
     {
-      "path": "shoegaze.add2",
       "instance-id": 2,
+      "full-path": "shoegaze.add2",
       "view": {
-        "position": [500, 250]
+        "transform": {
+          "translation": [500, 250],
+          "scale": [1, 1]
+        },
+        "style": {}
       }
     },
     {
-      "path": "shoegaze.println",
       "instance-id": 3,
+      "full-path": "shoegaze.println",
       "view": {
-        "position": [1000, 250]
+        "transform": {
+          "translation": [1000, 250],
+          "scale": [1, 1]
+        },
+        "style": {}
       }
     }
   ],
-  "edges": {
-    "0": [
-      [2, 0]
-    ],
-    "1": [
-      [2, 1]
-    ],
-    "2": [
-      [3, 0]
-    ]
-  }
+  "edges": [
+    [0, 0, 2, 0],
+    [1, 0, 2, 1],
+    [2, 0, 3, 0]
+  ]
 }
