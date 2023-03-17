@@ -26,7 +26,6 @@
     <orderEntry type="library" name="Leiningen: cljsjs/react-dom:18.2.0-0" level="project" />
     <orderEntry type="library" name="Leiningen: cljsjs/react:18.2.0-0" level="project" />
     <orderEntry type="library" name="Leiningen: clojail:1.0.6" level="project" />
-    <orderEntry type="library" name="Leiningen: clojure-complete:0.2.5" level="project" />
     <orderEntry type="library" name="Leiningen: clout:2.2.1" level="project" />
     <orderEntry type="library" name="Leiningen: com.cognitect/transit-clj:1.0.324" level="project" />
     <orderEntry type="library" name="Leiningen: com.cognitect/transit-cljs:0.8.264" level="project" />
@@ -57,7 +56,7 @@
     <orderEntry type="library" name="Leiningen: javax.servlet/javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Leiningen: javax.xml.bind/jaxb-api:2.3.0" level="project" />
     <orderEntry type="library" name="Leiningen: medley:1.4.0" level="project" />
-    <orderEntry type="library" name="Leiningen: nrepl:0.6.0" level="project" />
+    <orderEntry type="library" name="Leiningen: nrepl:1.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpasyncclient:4.1.4" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpclient:4.5.6" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpcore-nio:4.4.10" level="project" />
@@ -85,6 +84,7 @@
     <orderEntry type="library" name="Leiningen: org.flatland/useful:0.9.3" level="project" />
     <orderEntry type="library" name="Leiningen: org.javassist/javassist:3.18.1-GA" level="project" />
     <orderEntry type="library" name="Leiningen: org.msgpack/msgpack:0.6.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.nrepl/incomplete:0.1.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.ow2.asm/asm:9.2" level="project" />
     <orderEntry type="library" name="Leiningen: org.swinglabs.swingx/swingx-action:1.6.3" level="project" />
     <orderEntry type="library" name="Leiningen: org.swinglabs.swingx/swingx-autocomplete:1.6.3" level="project" />

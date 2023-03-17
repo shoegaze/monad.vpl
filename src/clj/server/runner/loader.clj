@@ -2,16 +2,18 @@
   (:require [clojure.java.io :as io]
             [clojure.data.json :as json]
             [taoensso.timbre :as timbre]
-            [node.node-cache :refer [add-entry]]
-            [node.node-model :refer [->NodeModel]]
-            [node.node-view :refer [->NodeView]]
-            [node.node-instance :refer [->NodeInstance]]))
+            [shared.node-cache.core :refer [get-node add-model add-view]]
+            [shared.node-cache.node-model :refer [->NodeModel]]
+            [shared.node-cache.node-view :refer [->NodeView]]
+            [shared.graph.core :refer [->Graph]]
+            [shared.graph.graph-instance :refer [->GraphInstance]]
+            [shared.graph.graph-edge :refer [->GraphEdge]]))
 
 
-(defn parse-meta [meta-str]
+(defn- parse-meta [meta-str]
   (json/read-str meta-str :key-fn keyword))
 
-(defn load-node! [node-cache package node-file]
+(defn- load-node! [node-cache package node-file]
   (let [meta-json  (-> node-file
                        (io/file "node.json")
                        slurp
@@ -35,15 +37,15 @@
           id        (hash full-path)
           ; HACK: Dangerous without validation!
           node-model (->NodeModel full-path meta-json script-str)
-          node-view  (->NodeView nil {} {:small  icon-small
-                                         :medium icon-medium
-                                         :large  icon-large})
-          node-instance (->NodeInstance node-model node-view)]
-      (timbre/warn "Loading node ( full-path:" full-path "id:" id ") without validation!")
-      (swap! node-cache add-entry node-instance))))
+          node-view  (->NodeView  full-path {} {} {:small  icon-small
+                                                   :medium icon-medium
+                                                   :large  icon-large})]
+      (timbre/warn "Loading node model and view ( full-path:" full-path ") without validation!")
+      (swap! node-cache add-model node-model)
+      (swap! node-cache add-view  node-view))))
 
 ; TODO: Recursively read packages until max-depth
-(defn load-package! [node-cache package]
+(defn- load-package! [node-cache package]
   (doseq [node (.listFiles package)
           :when (.isDirectory node)]
     (timbre/info "  *" (.getName node))
@@ -58,11 +60,28 @@
       (load-package! node-cache package))))
 
 
-(defn parse-graph [graph-str]
+(defn- parse-graph [graph-str]
   (json/read-str graph-str :key-fn keyword))
 
-(defn load-graph! [node-graph graph-file]
+(defn load-graph! [node-cache node-graph graph-file]
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
-  (let [graph-json (-> graph-file slurp parse-graph)]
-    ; TODO: Validate graph json
-    (reset! node-graph graph-json)))
+
+  (let [; TODO: Validate graph json
+        graph-json (-> graph-file slurp parse-graph)
+        ; TODO: Verify node-models and node-views exist
+        instances  (->> graph-json
+                        :instances
+                        (map #(let [{instance-id :instance-id
+                                     full-path   :full-path} %
+                                    {model :model
+                                     view  :view} (get-node @node-cache full-path)]
+                                ; TODO: Load :view property from instance
+                                ; TODO: Verify instance-ids are unique
+                                ; TODO: Validate model, view schema
+                                (->GraphInstance instance-id model view))))
+        edges      (->> graph-json
+                        :edges
+                        (map #(apply ->GraphEdge %)))
+        new-graph  (->Graph instances edges)]
+
+    (reset! node-graph new-graph)))
