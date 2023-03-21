@@ -14,7 +14,9 @@
 
   (timbre/info "> Loading nodes from directory:" (.toString packages-dir))
   (loader/load-nodes! node-cache packages-dir)
+
   (timbre/debug "> Node cache:" @node-cache)
+
 
   (timbre/info "> Generating node graph")
   (reset! node-graph (make-graph {} []))
@@ -25,6 +27,7 @@
     (loader/load-graph! node-cache node-graph default-graph))
 
   (timbre/debug "> Node graph:" @node-graph)
+
 
   ; TODO: Create new executor thread
   (let [step-rate 1000/1]

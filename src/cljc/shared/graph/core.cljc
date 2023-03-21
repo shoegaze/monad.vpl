@@ -1,9 +1,8 @@
 (ns shared.graph.core)
 
 
-(defn valid-graph?
-  "TODO"
-  [_graph]
+;; TODO:
+(defn valid-graph? [_graph]
   true)
 
 (defn make-graph [instances edges]

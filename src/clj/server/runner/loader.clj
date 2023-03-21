@@ -7,7 +7,7 @@
             [shared.node-cache.node-view :refer [->NodeView]]
             [shared.graph.core :refer [make-graph]]
             [shared.graph.graph-instance :refer [->GraphInstance]]
-            [shared.graph.graph-edge :refer [->GraphEdge]]))
+            [shared.graph.graph-edge :refer [make-graph-edge]]))
 
 
 (defn- parse-meta [meta-str]
@@ -80,7 +80,7 @@
                                 (->GraphInstance instance-id model view))))
         edges      (->> graph-json
                         :edges
-                        (map #(apply ->GraphEdge %)))
+                        (map #(apply make-graph-edge %)))
         new-graph  (make-graph instances edges)]
 
     (reset! node-graph new-graph)))
