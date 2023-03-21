@@ -6,7 +6,7 @@
             [shared.node-cache.node-model :refer [->NodeModel]]
             [shared.node-cache.node-view :refer [->NodeView]]
             [shared.graph.core :refer [make-graph]]
-            [shared.graph.graph-instance :refer [->GraphInstance]]
+            [shared.graph.graph-instance :refer [make-graph-instance]]
             [shared.graph.graph-edge :refer [make-graph-edge]]))
 
 
@@ -77,7 +77,7 @@
                                 ; TODO: Load :view property from instance
                                 ; TODO: Verify instance-ids are unique
                                 ; TODO: Validate model, view schema
-                                (->GraphInstance instance-id model view))))
+                                (make-graph-instance instance-id model view))))
         edges      (->> graph-json
                         :edges
                         (map #(apply make-graph-edge %)))
