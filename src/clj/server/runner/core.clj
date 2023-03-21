@@ -19,7 +19,7 @@
 
 
   (timbre/info "> Generating node graph")
-  (reset! node-graph (make-graph {} []))
+  (reset! node-graph (make-graph))
 
   (let [graph-uri     (.toURI graphs-dir)
         default-graph (.resolve graph-uri "graphs/shoegaze/math.edn")]

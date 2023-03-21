@@ -5,12 +5,14 @@
 (defn valid-graph? [_graph]
   true)
 
-(defn make-graph [instances edges]
-  (let [graph {:instances instances
-               :edges     edges}]
-    ; TODO: Throw error when not valid?
-    (when (valid-graph? graph)
-      graph)))
+(defn make-graph
+  ([] (make-graph {} []))
+  ([instances edges]
+   (let [graph {:instances instances
+                :edges     edges}]
+     ; TODO: Throw error when not valid?
+     (when (valid-graph? graph)
+       graph))))
 
 (defn update-instance [graph instance]
   (let [{instances :instances
