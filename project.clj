@@ -12,7 +12,7 @@
 
   :dependencies [; Server
                  [org.clojure/clojure       "1.11.1"]
-                 [org.clojure/data.json     "2.4.0"]
+                 [org.clojure/tools.reader  "1.3.6"]
                  [ring                      "1.9.6"]
                  [ring/ring-defaults        "0.3.4"]
                  [compojure                 "1.7.0"]
@@ -22,10 +22,10 @@
                  ; Client
                  [org.clojure/clojurescript "1.11.60"]
                  [org.slf4j/slf4j-nop       "2.0.5"]
-                 [hiccup                    "1.0.5"]
                  [cljsjs/react              "18.2.0-0"]
                  [cljsjs/react-dom          "18.2.0-0"]
                  [reagent                   "1.2.0"]
+                 [hiccup                    "1.0.5"]
                  ; Shared
                  [org.clojure/core.async    "1.6.673"]
                  [com.taoensso/timbre       "6.1.0"]

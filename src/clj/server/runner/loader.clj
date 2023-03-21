@@ -1,13 +1,14 @@
 (ns server.runner.loader
   (:require [clojure.java.io :as io]
-            [clojure.edn :as edn]
+            [clojure.tools.reader.edn :as edn]
             [taoensso.timbre :as timbre]
             [shared.node-cache.core :refer [get-node add-model add-view]]
             [shared.node-cache.node-model :refer [make-node-model]]
             [shared.node-cache.node-view :refer [make-node-view]]
             [shared.graph.core :refer [make-graph]]
             [shared.graph.graph-instance :refer [make-graph-instance]]
-            [shared.graph.graph-edge :refer [make-graph-edge]]))
+            [shared.graph.graph-edge :refer [make-graph-edge]])
+  (:refer-clojure :exclude [read read-string]))
 
 
 (defn- parse-meta [meta-str]
