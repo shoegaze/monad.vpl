@@ -15,7 +15,7 @@
   (edn/read-string meta-str))
 
 (defn- load-node! [node-cache package node-file]
-  (let [meta-json  (-> node-file
+  (let [meta-edn   (-> node-file
                        (io/file "node.edn")
                        slurp
                        parse-meta)
@@ -29,17 +29,17 @@
         icon-small  nil
         icon-medium nil
         icon-large  nil]
-    ; TODO: Validate meta-json
+    ; TODO: Validate meta-edn
     ; TODO: Validate script-str
     ; TODO: Validate icon-small, icon-medium, icon-large
     (let [package-name (.getName package)
           node-name    (.getName node-file)
           full-path (str package-name "." node-name)
           ; HACK: Dangerous without validation!
-          node-model (make-node-model full-path meta-json script-str)
+          node-model (make-node-model full-path meta-edn script-str)
           node-view  (make-node-view  full-path {} {} {:small  icon-small
-                                                   :medium icon-medium
-                                                   :large  icon-large})]
+                                                       :medium icon-medium
+                                                       :large  icon-large})]
       (timbre/warn "Loading node model and view ( full-path:" full-path ") without validation!")
       (swap! node-cache add-model node-model)
       (swap! node-cache add-view  node-view))))
@@ -63,25 +63,13 @@
 (defn- parse-graph [graph-str]
   (edn/read-string graph-str))
 
-(defn load-graph! [node-cache node-graph graph-file]
+(defn load-graph! [_node-cache node-graph graph-file]
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
 
-  (let [; TODO: Validate graph json
-        graph-json (-> graph-file slurp parse-graph)
-        ; TODO: Verify node-models and node-views exist
-        instances  (->> graph-json
-                        :instances
-                        (map #(let [{instance-id :instance-id
-                                     full-path   :full-path} %
-                                    {model :model
-                                     view  :view} (get-node @node-cache full-path)]
-                                ; TODO: Load :view property from instance
-                                ; TODO: Verify instance-ids are unique
-                                ; TODO: Validate model, view schema
-                                (make-graph-instance instance-id model view))))
-        edges      (->> graph-json
-                        :edges
-                        (map #(apply make-graph-edge %)))
-        new-graph  (make-graph instances edges)]
+  (let [; TODO: Validate graph schema
+        graph-edn (-> graph-file
+                      slurp
+                      parse-graph)]
 
-    (reset! node-graph new-graph)))
+    (timbre/info "Graph loaded:" graph-edn)
+    (reset! node-graph graph-edn)))

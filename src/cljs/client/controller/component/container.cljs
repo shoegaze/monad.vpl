@@ -14,13 +14,11 @@
 
     ; HACK:
     (add-watch
-      state/socket-open?
-      :init
+      state/socket-open? :init
       (fn [_ _ _ new-state]
         (when new-state
           (action/fetch-node-cache! node-cache)
-          (action/fetch-node-graph! node-graph)
-          (remove-watch state/socket-open? :init))))
+          (action/fetch-node-graph! node-graph))))
 
     (fn []
       [:div.container
