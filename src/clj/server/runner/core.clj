@@ -1,7 +1,7 @@
 (ns server.runner.core
   (:require [clojure.core.async :refer [go]]
             [taoensso.timbre :as timbre]
-            [shared.node-cache.core :refer [->NodeCache]]
+            [shared.node-cache.core :refer [make-node-cache]]
             [shared.graph.core :refer [make-graph]]
             [server.runner.executor :as executor]
             [server.runner.loader :as loader]
@@ -10,7 +10,7 @@
 
 (defn start-runner [packages-dir graphs-dir]
   (timbre/info "> Generating node cache")
-  (reset! node-cache (->NodeCache {}))
+  (reset! node-cache (make-node-cache))
 
   (timbre/info "> Loading nodes from directory:" (.toString packages-dir))
   (loader/load-nodes! node-cache packages-dir)
