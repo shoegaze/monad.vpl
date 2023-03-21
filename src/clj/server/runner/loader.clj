@@ -5,7 +5,7 @@
             [shared.node-cache.core :refer [get-node add-model add-view]]
             [shared.node-cache.node-model :refer [->NodeModel]]
             [shared.node-cache.node-view :refer [->NodeView]]
-            [shared.graph.core :refer [->Graph]]
+            [shared.graph.core :refer [make-graph]]
             [shared.graph.graph-instance :refer [->GraphInstance]]
             [shared.graph.graph-edge :refer [->GraphEdge]]))
 
@@ -81,6 +81,6 @@
         edges      (->> graph-json
                         :edges
                         (map #(apply ->GraphEdge %)))
-        new-graph  (->Graph instances edges)]
+        new-graph  (make-graph instances edges)]
 
     (reset! node-graph new-graph)))
