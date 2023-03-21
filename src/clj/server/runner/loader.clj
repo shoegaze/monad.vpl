@@ -4,7 +4,7 @@
             [taoensso.timbre :as timbre]
             [shared.node-cache.core :refer [get-node add-model add-view]]
             [shared.node-cache.node-model :refer [make-node-model]]
-            [shared.node-cache.node-view :refer [->NodeView]]
+            [shared.node-cache.node-view :refer [make-node-view]]
             [shared.graph.core :refer [make-graph]]
             [shared.graph.graph-instance :refer [make-graph-instance]]
             [shared.graph.graph-edge :refer [make-graph-edge]]))
@@ -36,7 +36,7 @@
           full-path (str package-name "." node-name)
           ; HACK: Dangerous without validation!
           node-model (make-node-model full-path meta-json script-str)
-          node-view  (->NodeView  full-path {} {} {:small  icon-small
+          node-view  (make-node-view  full-path {} {} {:small  icon-small
                                                    :medium icon-medium
                                                    :large  icon-large})]
       (timbre/warn "Loading node model and view ( full-path:" full-path ") without validation!")

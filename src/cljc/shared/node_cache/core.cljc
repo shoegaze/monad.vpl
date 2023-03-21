@@ -24,6 +24,6 @@
       (->NodeCache new-cache)))
 
   (add-view [_ node-view]
-    (let [node-id   (view/get-node-id node-view)
+    (let [node-id   (view/node-id node-view)
           new-cache (assoc-in cache [node-id :view] node-view)]
       (->NodeCache new-cache))))
