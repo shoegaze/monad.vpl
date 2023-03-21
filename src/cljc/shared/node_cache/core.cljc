@@ -1,6 +1,4 @@
-(ns shared.node-cache.core
-  (:require [shared.node-cache.node-model :as model]
-            [shared.node-cache.node-view :as view]))
+(ns shared.node-cache.core)
 
 
 ;; TODO:
@@ -23,13 +21,13 @@
     (get cache node-id)))
 
 (defn add-model [node-cache node-model]
-  (let [node-id   (model/node-id node-model)
+  (let [full-path (:full-path node-model)
         old-cache (:cache node-cache)
-        new-cache (assoc-in old-cache [node-id :model] node-model)]
+        new-cache (assoc-in old-cache [full-path :model] node-model)]
     (make-node-cache new-cache)))
 
 (defn add-view [node-cache node-view]
-  (let [node-id   (view/node-id node-view)
+  (let [full-path (:full-path node-view)
         old-cache (:cache node-cache)
-        new-cache (assoc-in old-cache [node-id :view] node-view)]
+        new-cache (assoc-in old-cache [full-path :view] node-view)]
     (make-node-cache new-cache)))

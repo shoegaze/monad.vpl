@@ -13,7 +13,3 @@
     ; TODO: Throw error when not valid?
     (when (valid-node-view? node-view)
       node-view)))
-
-(defn node-id [node-model]
-  (let [{full-path :full-path} node-model]
-    (hash full-path)))

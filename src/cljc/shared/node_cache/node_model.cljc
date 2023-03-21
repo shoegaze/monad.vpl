@@ -12,7 +12,3 @@
     ; TODO: Throw error when not valid?
     (when (valid-node-model? node-model)
       node-model)))
-
-(defn node-id [node-model]
-  (let [{full-path :full-path} node-model]
-    (hash full-path)))
