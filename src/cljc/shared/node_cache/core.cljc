@@ -3,27 +3,33 @@
             [shared.node-cache.node-view :as view]))
 
 
-(defprotocol INodeCache
-  (get-node  [this full-path])
-  (add-model [this node-model])
-  (add-view  [this node-view]))
+;; TODO:
+(defn valid-node-cache? [_node-cache]
+  true)
 
 ; :cache { node-id { :model ^NodeModel
 ;                    :view  ^NodeView  }}
-(defrecord NodeCache [cache]
-  INodeCache
+(defn make-node-cache
+  ([] (make-node-cache {}))
+  ([cache]
+   (let [node-cache {:cache cache}]
+     ; TODO: Throw error when not valid?
+     (when (valid-node-cache? node-cache)
+       node-cache))))
 
-  (get-node [_ full-path]
-    ; TODO: Unify get-node-id methods
-    (let [node-id (hash full-path)]
-      (get cache node-id)))
+(defn get-node [node-cache full-path]
+  (let [cache   (:cache node-cache)
+        node-id (hash full-path)]
+    (get cache node-id)))
 
-  (add-model [_ node-model]
-    (let [node-id   (model/get-node-id node-model)
-          new-cache (assoc-in cache [node-id :model] node-model)]
-      (->NodeCache new-cache)))
+(defn add-model [node-cache node-model]
+  (let [node-id   (model/node-id node-model)
+        old-cache (:cache node-cache)
+        new-cache (assoc-in old-cache [node-id :model] node-model)]
+    (make-node-cache new-cache)))
 
-  (add-view [_ node-view]
-    (let [node-id   (view/get-node-id node-view)
-          new-cache (assoc-in cache [node-id :view] node-view)]
-      (->NodeCache new-cache))))
+(defn add-view [node-cache node-view]
+  (let [node-id   (view/node-id node-view)
+        old-cache (:cache node-cache)
+        new-cache (assoc-in old-cache [node-id :view] node-view)]
+    (make-node-cache new-cache)))

@@ -1,0 +1,7 @@
+{:name "One"
+ :description "Numeric constant value 1."
+ :tags ["math"]
+ :inputs  []
+ :outputs [:number]
+ :style {:margin  [0 0 0 0]
+         :padding [0 0 0 0]}}

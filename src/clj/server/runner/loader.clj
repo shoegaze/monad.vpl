@@ -1,21 +1,21 @@
 (ns server.runner.loader
   (:require [clojure.java.io :as io]
-            [clojure.data.json :as json]
+            [clojure.edn :as edn]
             [taoensso.timbre :as timbre]
             [shared.node-cache.core :refer [get-node add-model add-view]]
-            [shared.node-cache.node-model :refer [->NodeModel]]
-            [shared.node-cache.node-view :refer [->NodeView]]
-            [shared.graph.core :refer [->Graph]]
-            [shared.graph.graph-instance :refer [->GraphInstance]]
-            [shared.graph.graph-edge :refer [->GraphEdge]]))
+            [shared.node-cache.node-model :refer [make-node-model]]
+            [shared.node-cache.node-view :refer [make-node-view]]
+            [shared.graph.core :refer [make-graph]]
+            [shared.graph.graph-instance :refer [make-graph-instance]]
+            [shared.graph.graph-edge :refer [make-graph-edge]]))
 
 
 (defn- parse-meta [meta-str]
-  (json/read-str meta-str :key-fn keyword))
+  (edn/read-string meta-str))
 
 (defn- load-node! [node-cache package node-file]
   (let [meta-json  (-> node-file
-                       (io/file "node.json")
+                       (io/file "node.edn")
                        slurp
                        parse-meta)
         script-str (-> node-file
@@ -34,10 +34,9 @@
     (let [package-name (.getName package)
           node-name    (.getName node-file)
           full-path (str package-name "." node-name)
-          id        (hash full-path)
           ; HACK: Dangerous without validation!
-          node-model (->NodeModel full-path meta-json script-str)
-          node-view  (->NodeView  full-path {} {} {:small  icon-small
+          node-model (make-node-model full-path meta-json script-str)
+          node-view  (make-node-view  full-path {} {} {:small  icon-small
                                                    :medium icon-medium
                                                    :large  icon-large})]
       (timbre/warn "Loading node model and view ( full-path:" full-path ") without validation!")
@@ -61,7 +60,7 @@
 
 
 (defn- parse-graph [graph-str]
-  (json/read-str graph-str :key-fn keyword))
+  (edn/read-string graph-str))
 
 (defn load-graph! [node-cache node-graph graph-file]
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
@@ -78,10 +77,10 @@
                                 ; TODO: Load :view property from instance
                                 ; TODO: Verify instance-ids are unique
                                 ; TODO: Validate model, view schema
-                                (->GraphInstance instance-id model view))))
+                                (make-graph-instance instance-id model view))))
         edges      (->> graph-json
                         :edges
-                        (map #(apply ->GraphEdge %)))
-        new-graph  (->Graph instances edges)]
+                        (map #(apply make-graph-edge %)))
+        new-graph  (make-graph instances edges)]
 
     (reset! node-graph new-graph)))

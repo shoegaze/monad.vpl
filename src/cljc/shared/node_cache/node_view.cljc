@@ -1,12 +1,19 @@
 (ns shared.node-cache.node-view)
 
 
-; TODO: Unify INodeView with INodeModel
-(defprotocol INodeView
-  (get-node-id [this]))
+;; TODO:
+(defn valid-node-view? [_node-view]
+  true)
 
-(defrecord NodeView [full-path transform style icons]
-  INodeView
+(defn make-node-view [full-path transform style icons]
+  (let [node-view {:full-path full-path
+                   :transform transform
+                   :style     style
+                   :icons     icons}]
+    ; TODO: Throw error when not valid?
+    (when (valid-node-view? node-view)
+      node-view)))
 
-  (get-node-id [_]
+(defn node-id [node-model]
+  (let [{full-path :full-path} node-model]
     (hash full-path)))

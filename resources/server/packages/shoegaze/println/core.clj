@@ -1,4 +1,4 @@
-(ns server.packages.shoegaze.println.core)
+(ns packages.shoegaze.println.core)
 
 
 (defn -main [& args]

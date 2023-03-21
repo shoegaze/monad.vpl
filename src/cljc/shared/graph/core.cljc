@@ -1,21 +1,29 @@
 (ns shared.graph.core)
 
 
-(defprotocol IGraph
-  (add-instance    [this instance])
-  (remove-instance [this instance]))
+;; TODO:
+(defn valid-graph? [_graph]
+  true)
 
-; :instances { instance-id ^GraphInstance }
-; :edges     { edge-id     ^GraphEdge     }
-(defrecord Graph [instances edges]
-  IGraph
+(defn make-graph
+  ([] (make-graph {} []))
+  ([instances edges]
+   (let [graph {:instances instances
+                :edges     edges}]
+     ; TODO: Throw error when not valid?
+     (when (valid-graph? graph)
+       graph))))
 
-  (add-instance [_ instance]
-    (let [id        (:instance-id instance)
-          new-nodes (assoc instances id instance)]
-      (->Graph new-nodes edges)))
+(defn update-instance [graph instance]
+  (let [{instances :instances
+         edges     :edges} graph
+        id        (:instance-id instance)
+        new-nodes (assoc instances id instance)]
+    (make-graph new-nodes edges)))
 
-  (remove-instance [_ instance]
-    (let [id        (:instance-id instance)
-          new-nodes (dissoc instances id instance)]
-      (->Graph new-nodes edges))))
+(defn remove-instance [graph instance]
+  (let [{instances :instances
+         edges     :edges} graph
+        id        (:instance-id instance)
+        new-nodes (dissoc instances id instance)]
+      (make-graph new-nodes edges)))
