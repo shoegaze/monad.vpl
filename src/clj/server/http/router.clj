@@ -1,6 +1,5 @@
 (ns server.http.router
-  (:require [taoensso.timbre :as timbre]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
+  (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.defaults :refer :all]
             [compojure.core :refer :all]
             [compojure.route :as route]
