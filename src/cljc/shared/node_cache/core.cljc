@@ -16,16 +16,17 @@
        node-cache))))
 
 (defn get-node [node-cache full-path]
-  (let [cache   (:cache node-cache)
-        node-id (hash full-path)]
-    (get cache node-id)))
+  (let [cache (:cache node-cache)]
+    (get cache full-path)))
 
+;; TODO: Validate node-model
 (defn add-model [node-cache node-model]
   (let [full-path (:full-path node-model)
         old-cache (:cache node-cache)
         new-cache (assoc-in old-cache [full-path :model] node-model)]
     (make-node-cache new-cache)))
 
+;; TODO: Validate node-view
 (defn add-view [node-cache node-view]
   (let [full-path (:full-path node-view)
         old-cache (:cache node-cache)
