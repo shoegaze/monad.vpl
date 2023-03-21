@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.java-websocket/Java-WebSocket:1.5.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/java-websocket/Java-WebSocket/1.5.3/Java-WebSocket-1.5.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

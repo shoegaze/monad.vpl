@@ -1,4 +1,4 @@
-(ns server.packages.shoegaze.one.core)
+(ns packages.shoegaze.one.core)
 
 
 (def -main []

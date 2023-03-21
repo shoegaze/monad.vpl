@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Server: Serve REPL" type="LeiningenRunConfiguration" factoryName="Leiningen" singleton="true">
+  <configuration default="false" name="Shared: Clean" type="LeiningenRunConfiguration" factoryName="Leiningen" singleton="true">
     <option name="aliases" />
     <option name="execution" value="LEININGEN" />
     <module name="plenum-vpl" />
     <option name="profiles" />
-    <option name="PROGRAM_PARAMETERS" value="serve-repl" />
+    <option name="PROGRAM_PARAMETERS" value="do clean" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <method v="2" />
   </configuration>

@@ -1,8 +1,19 @@
 (ns client.controller.core
-  (:require [reagent.dom :as rdom]
-            [client.controller.component.container :refer [container]]))
+  (:require [taoensso.timbre :as timbre]
+            [reagent.dom :as rdom]
+            [client.controller.component.container :refer [container]]
+            [client.controller.http.socket :as ws]))
 
+
+(def csrf-token
+  (-> "__anti-forgery-token"
+      js/document.getElementById
+      .-value))
 
 (defn ^:export init []
-  (rdom/render [container]
-               (js/document.getElementById "root")))
+  (timbre/set-min-level! :debug)
+
+  (ws/start-router csrf-token)
+  (rdom/render
+    [container]
+    (js/document.getElementById "root")))

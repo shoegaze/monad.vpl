@@ -34,7 +34,6 @@
     (let [package-name (.getName package)
           node-name    (.getName node-file)
           full-path (str package-name "." node-name)
-          id        (hash full-path)
           ; HACK: Dangerous without validation!
           node-model (->NodeModel full-path meta-json script-str)
           node-view  (->NodeView  full-path {} {} {:small  icon-small
