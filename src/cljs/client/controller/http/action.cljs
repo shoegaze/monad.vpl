@@ -10,9 +10,9 @@
     (fn [reply]
       (if (cb-success? reply)
         (do
-          (timbre/info "Fetched node cache:" reply)
+          (timbre/info "> Fetched node cache:" reply)
           (reset! node-cache reply))
-        (timbre/warn "Could not fetch node cache:" reply)))))
+        (timbre/warn "> Could not fetch node cache:" reply)))))
 
 (defn fetch-node-graph! [node-graph]
   (timbre/info "Fetching node graph")
@@ -20,6 +20,6 @@
     (fn [reply]
       (if (cb-success? reply)
         (do
-          (timbre/info "Fetched node graph:" reply)
+          (timbre/info "> Fetched node graph:" reply)
           (reset! node-graph reply))
-        (timbre/warn "Could not fetch node graph:" reply)))))
+        (timbre/warn "> Could not fetch node graph:" reply)))))
