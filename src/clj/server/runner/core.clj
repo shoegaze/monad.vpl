@@ -19,7 +19,7 @@
   (reset! node-graph (->Graph {} []))
 
   (let [graph-uri     (.toURI graphs-dir)
-        default-graph (.resolve graph-uri "graphs/shoegaze/math.json")]
+        default-graph (.resolve graph-uri "graphs/shoegaze/math.edn")]
     (timbre/info "> Loading graphs from directory:" (.toString graphs-dir))
     (loader/load-graph! node-cache node-graph default-graph))
 

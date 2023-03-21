@@ -1,0 +1,24 @@
+{:instances [{:instance-id 0
+              :full-path   "shoegaze.one"
+              :view        {:transform {:translation [0 0]
+                                        :scale       [1 1]}
+                            :style     {}}}
+             {:instance-id 1
+              :full-path   "shoegaze.one"
+              :view        {:transform {:translation [0 500]
+                                        :scale       [1 1]}
+                            :style     {}}}
+             {:instance-id 2
+              :full-path   "shoegaze.add2"
+              :view        {:transform {:translation [500 250]
+                                        :scale       [1 1]}
+                            :style     {}}}
+             {:instance-id 3
+              :full-path   "shoegaze.println"
+              :view        {:transform {:translation [1000 250]
+                                        :scale       [1 1]}
+                            :style     {}}}]
+  :edges [[0 0 2 0]
+          [1 0 2 1]
+          [2 0 3 0]]
+ }

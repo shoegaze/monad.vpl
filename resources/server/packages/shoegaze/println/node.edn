@@ -1,0 +1,7 @@
+{:name "Print Line"
+ :description "Prints its argument in a new line."
+ :tags ["console" "io"]
+ :inputs  [:any]
+ :outputs []
+ :style {:margin  [0 0 0 0]
+         :padding [0 0 0 0]}}

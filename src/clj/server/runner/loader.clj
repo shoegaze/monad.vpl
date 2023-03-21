@@ -1,6 +1,6 @@
 (ns server.runner.loader
   (:require [clojure.java.io :as io]
-            [clojure.data.json :as json]
+            [clojure.edn :as edn]
             [taoensso.timbre :as timbre]
             [shared.node-cache.core :refer [get-node add-model add-view]]
             [shared.node-cache.node-model :refer [->NodeModel]]
@@ -11,11 +11,11 @@
 
 
 (defn- parse-meta [meta-str]
-  (json/read-str meta-str :key-fn keyword))
+  (edn/read-string meta-str))
 
 (defn- load-node! [node-cache package node-file]
   (let [meta-json  (-> node-file
-                       (io/file "node.json")
+                       (io/file "node.edn")
                        slurp
                        parse-meta)
         script-str (-> node-file
@@ -60,7 +60,7 @@
 
 
 (defn- parse-graph [graph-str]
-  (json/read-str graph-str :key-fn keyword))
+  (edn/read-string graph-str))
 
 (defn load-graph! [node-cache node-graph graph-file]
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
