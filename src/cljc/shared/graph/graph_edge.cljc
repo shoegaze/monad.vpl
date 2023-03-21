@@ -11,6 +11,7 @@
                     :out-pin      out-pin
                     :in-instance  in-instance
                     :in-pin       in-pin}]
+    ; TODO: Throw error when not valid?
     (when (valid-graph-edge? :TODO graph-edge)
       graph-edge)))
 

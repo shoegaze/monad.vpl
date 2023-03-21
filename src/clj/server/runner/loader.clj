@@ -3,7 +3,7 @@
             [clojure.edn :as edn]
             [taoensso.timbre :as timbre]
             [shared.node-cache.core :refer [get-node add-model add-view]]
-            [shared.node-cache.node-model :refer [->NodeModel]]
+            [shared.node-cache.node-model :refer [make-node-model]]
             [shared.node-cache.node-view :refer [->NodeView]]
             [shared.graph.core :refer [make-graph]]
             [shared.graph.graph-instance :refer [make-graph-instance]]
@@ -35,7 +35,7 @@
           node-name    (.getName node-file)
           full-path (str package-name "." node-name)
           ; HACK: Dangerous without validation!
-          node-model (->NodeModel full-path meta-json script-str)
+          node-model (make-node-model full-path meta-json script-str)
           node-view  (->NodeView  full-path {} {} {:small  icon-small
                                                    :medium icon-medium
                                                    :large  icon-large})]

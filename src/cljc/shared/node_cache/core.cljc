@@ -19,7 +19,7 @@
       (get cache node-id)))
 
   (add-model [_ node-model]
-    (let [node-id   (model/get-node-id node-model)
+    (let [node-id   (model/node-id node-model)
           new-cache (assoc-in cache [node-id :model] node-model)]
       (->NodeCache new-cache)))
 

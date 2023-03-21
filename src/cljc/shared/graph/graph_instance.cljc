@@ -9,5 +9,6 @@
   (let [graph-instance {:instance-id instance-id
                         :model       model
                         :view        view}]
+    ; TODO: Throw error when not valid?
     (when (valid-graph-instance? graph-instance)
       graph-instance)))
