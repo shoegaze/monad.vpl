@@ -5,12 +5,12 @@
 
 (defmulti event-msg-handler :id)
 
-(defmethod event-msg-handler :default [{:as ev-msg :keys [event]}]
-  (timbre/log "Unhandled event:" event))
+(defmethod event-msg-handler :default [{:keys [event]}]
+  (timbre/warn "Unhandled event:" event))
 
 (defmethod event-msg-handler :chsk/state
-  [{:as ev-msg :keys [?data]}]
-  (let [[old-state-map new-state-map] ?data]
+  [{:keys [?data]}]
+  (let [[_old-state-map new-state-map] ?data]
     (cond
       (:first-open? new-state-map) (reset! state/socket-open? true)
       (:opened?     new-state-map) (reset! state/socket-open? true)
@@ -18,10 +18,10 @@
       :else                        (timbre/debug "Channel socket state changed:" new-state-map))))
 
 (defmethod event-msg-handler :chsk/recv
-  [{:as ev-msg :keys [?data]}]
-  (timbre/info "Push event from server:" ?data))
+  [{:keys [?data]}]
+  (timbre/debug "Push event from server:" ?data))
 
 (defmethod event-msg-handler :chsk/handshake
-  [{:as ev-msg :keys [?data]}]
-  (let [[?uid _ ?handshake-data first-handshake?] ?data]
-    (timbre/info "Handshake:" ?data)))
+  [{:keys [?data]}]
+  (let [[_ _ _ _] ?data]
+    (timbre/debug "Handshake:" ?data)))
