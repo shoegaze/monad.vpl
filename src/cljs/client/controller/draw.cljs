@@ -3,12 +3,18 @@
             [shared.node-cache.core :refer [get-node]]))
 
 
+(defonce PI js/Math.PI)
+(defonce TWO_PI (* 2.0 PI))
+
 (defn- clear [ctx]
   (set! (.-fillStyle ctx) "blue")
   (let [canvas (.-canvas ctx)
         width  (.-width canvas)
         height (.-height canvas)]
     (.clearRect ctx 0 0 width height)))
+
+(defn- circle [ctx x y r]
+  (.arc ctx x y r 0.0 TWO_PI))
 
 ; TODO: Take into account icon size, margin, & padding
 ; TODO: Take into account camera params ?
@@ -61,7 +67,12 @@
                      1 0 0)
       .closePath)))
 
-(defn- draw-instance-input-pin [ctx instance input inputs]
+(defn- pin-position [i n h]
+  (let [j (+ i 0.5)
+        t (/ j n)]
+    (* t h)))
+
+(defn- draw-instance-input-pin [ctx instance i inputs]
   (set! (.-fillStyle ctx) "aquamarine")
   (set! (.-strokeStyle ctx) "black")
 
@@ -73,14 +84,14 @@
       .beginPath
       (.translate dx dy)
       (.scale sx sy)
-      (.ellipse 0 (/ h 2) r r 0.0 0.0 (* 2.0 js/Math.PI))
+      (circle 0 (pin-position i (count inputs) h) r)
       .fill
       .stroke
       (.setTransform 1 0 0
                      1 0 0)
       .closePath)))
 
-(defn- draw-instance-output-pin [ctx instance output outputs]
+(defn- draw-instance-output-pin [ctx instance i outputs]
   (set! (.-fillStyle ctx) "orangered")
   (set! (.-strokeStyle ctx) "black")
 
@@ -92,7 +103,7 @@
       .beginPath
       (.translate dx dy)
       (.scale sx sy)
-      (.ellipse w (/ h 2) r r 0.0 0.0 (* 2.0 js/Math.PI))
+      (circle w (pin-position i (count outputs) h) r)
       .fill
       .stroke
       (.setTransform 1 0 0
@@ -106,18 +117,18 @@
                                 (get-node node-cache)
                                 :model
                                 :metadata)]
-    (doseq [input inputs]
-      (draw-instance-input-pin ctx instance input inputs))
+    (let [n (count inputs)]
+      (doseq [i (range n)]
+        (draw-instance-input-pin ctx instance i inputs)))
 
-    (doseq [output outputs]
-      (draw-instance-output-pin ctx instance output outputs))))
+    (let [n (count outputs)]
+      (doseq [i (range n)]
+        (draw-instance-output-pin ctx instance i outputs)))))
 
 (defn- draw-instance [ctx instance node-cache]
   (draw-instance-frame ctx instance)
-  ; TODO: Draw on top of frame
   (draw-instance-icon ctx instance node-cache)
-  (draw-instance-pins ctx instance node-cache)
-  )
+  (draw-instance-pins ctx instance node-cache))
 
 (defn- draw-instances [ctx node-cache node-graph]
   (let [instances (:instances node-graph)]
