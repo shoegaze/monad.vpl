@@ -1,7 +1,6 @@
 (ns client.controller.component.viewport
-  (:require [taoensso.timbre :as timbre]
-            [reagent.core :as r]
-            [client.controller.draw :refer [draw]]))
+  (:require [reagent.core :as r]
+            [client.controller.draw.core :refer [draw]]))
 
 
 (defn viewport [_node-cache _node-graph]

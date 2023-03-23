@@ -67,9 +67,12 @@
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
 
   (let [; TODO: Validate graph schema
+        ; TODO: Map graph to use make-*
         graph-edn (-> graph-file
                       slurp
-                      parse-graph)]
+                      parse-graph)
+        ;(graph-edn->obj graph-edn)
+        ]
 
     (timbre/info "Graph loaded:" graph-edn)
     (reset! node-graph graph-edn)))
