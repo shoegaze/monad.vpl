@@ -14,6 +14,14 @@
 (defn- parse-meta [meta-str]
   (edn/read-string meta-str))
 
+; TODO:
+(defn- valid-model? [node-model]
+  true)
+
+; TODO:
+(defn- valid-view? [node-view]
+  true)
+
 (defn- load-node! [node-cache package node-file]
   (let [meta-edn   (-> node-file
                        (io/file "node.edn")
@@ -35,14 +43,21 @@
     (let [package-name (.getName package)
           node-name    (.getName node-file)
           full-path (str package-name "." node-name)
-          ; HACK: Dangerous without validation!
           node-model (make-node-model full-path meta-edn script-str)
           node-view  (make-node-view  full-path {} {} {:small  icon-small
                                                        :medium icon-medium
                                                        :large  icon-large})]
-      (timbre/warn "Loading node model and view ( full-path:" full-path ") without validation!")
-      (swap! node-cache add-model node-model)
-      (swap! node-cache add-view  node-view))))
+      (if (valid-model? node-model)
+        (do
+          (timbre/warn "> Node model { full-path:" full-path "} loaded without validation!")
+          (swap! node-cache add-model node-model))
+        (timbre/error "> Could not load node model"))
+
+      (if (valid-view? node-view)
+        (do
+          (timbre/warn "> Node view { full-path:" full-path "} loaded without validation!")
+          (swap! node-cache add-view  node-view))
+        (timbre/error "> Could not load node view")))))
 
 ; TODO: Recursively read packages until max-depth
 (defn- load-package! [node-cache package]
@@ -63,6 +78,10 @@
 (defn- parse-graph [graph-str]
   (edn/read-string graph-str))
 
+; TODO:
+(defn- valid-graph? [graph]
+  true)
+
 (defn load-graph! [_node-cache node-graph graph-file]
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
 
@@ -70,9 +89,10 @@
         ; TODO: Map graph to use make-*
         graph-edn (-> graph-file
                       slurp
-                      parse-graph)
-        ;(graph-edn->obj graph-edn)
-        ]
+                      parse-graph)]
 
-    (timbre/info "Graph loaded:" graph-edn)
-    (reset! node-graph graph-edn)))
+    (if (valid-graph? graph-edn)
+      (do
+        (timbre/warn "> Graph loaded:" graph-edn)
+        (reset! node-graph graph-edn))
+      (timbre/error "> Graph could not be loaded!"))))
