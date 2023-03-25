@@ -1,7 +1,10 @@
 (ns client.controller.draw.instance
   (:require [shared.node-cache.core :refer [get-node]]
             [shared.graph.core :refer [get-instances]]
-            [client.controller.draw.util :refer [aabb circle pin-positions]]))
+            [client.controller.draw.util :refer [aabb
+                                                 circle
+                                                 pin-positions
+                                                 space-instance->canvas]]))
 
 
 ; HACK:
@@ -21,12 +24,12 @@
     (doto ctx
       .beginPath
       (.translate dx dy)
-      (.scale sx sy)
+      (.scale     sx sy)
       (.rect 0 0 w h)
       .fill
       .stroke
-      (.setTransform 1 0 0
-                     1 0 0)
+      (.translate (- dx) (- dy))
+      (.scale     (/ sx) (/ sy))
       .closePath)))
 
 (defn- draw-instance-icon [ctx instance node-cache]
@@ -47,10 +50,10 @@
     (doto ctx
       .beginPath
       (.translate dx dy)
-      (.scale sx sy)
+      (.scale     sx sy)
       (.fillText name (/ w 2) (/ h 2))
-      (.setTransform 1 0 0
-                     1 0 0)
+      (.translate (- dx) (- dy))
+      (.scale     (/ sx) (/ sy))
       .closePath)))
 
 (defn- draw-instance-input [ctx input-pos]
@@ -64,8 +67,7 @@
       (circle 0 0 ?instance-pin-radius)
       .fill
       .stroke
-      (.setTransform 1 0 0
-                     1 0 0)
+      (.translate (- dx) (- dy))
       .closePath)))
 
 (defn- draw-instance-output [ctx output-pos]
@@ -79,8 +81,7 @@
       (circle 0 0 ?instance-pin-radius)
       .fill
       .stroke
-      (.setTransform 1 0 0
-                     1 0 0)
+      (.translate (- dx) (- dy))
       .closePath)))
 
 (defn- draw-instance-pins [ctx instance node-cache]
@@ -102,4 +103,5 @@
 (defn draw-instances [ctx node-cache node-graph]
   (let [instances (get-instances node-graph)]
     (doseq [instance instances]
+      ; TODO: cull if (aabb instance) is outside of the viewport
       (draw-instance ctx instance node-cache))))

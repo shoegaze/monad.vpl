@@ -19,36 +19,42 @@
   (.arc ctx x y r 0.0 two-pi))
 
 ; TODO: Take into account icon size, margin, & padding
-; TODO: Define multimethod for instance, pin
-; TODO: Define AABB constructor
+; TODO: Define multimethod for camera, instance, pin
+; TODO: Define AABB constructor function
+; TODO: Move definition to aabb ns
 (defn aabb
-  "The instance's axis-aligned bounding box in canvas-space"
+  "The instance's axis-aligned bounding box in canvas-space."
   [instance]
   (let [{translation :translation
-         scale       :scale} (-> instance :view :transform)
+         scale       :scale      } (-> instance :view :transform)
         size  (mapv * ?instance-frame-size scale)
         start translation
         end   (mapv + translation size)]
     {:size  size
      :start start
-     :end   end}))
+     :end   end  }))
 
-(defn space-instance->canvas [point instance]
+(defn space-instance->canvas
+  "Converts a point from instance-space to canvas-space."
+  [point instance]
   (let [instance-origin (-> instance
                             :view
                             :transform
                             :translation)]
     (mapv + point instance-origin)))
 
-(defn space-canvas->instance [point instance]
+(defn space-canvas->instance
+  "Converts a point from canvas-space to instance-space."
+  [point instance]
   (let [instance-origin (-> instance
                             :view
                             :transform
                             :translation)]
     (mapv - point instance-origin)))
 
+
 (defn- pin-y
-  "Instance pin's y-position in instance-space"
+  "Instance pin's y-position in instance-space."
   [i n h]
   (let [j (+ i 0.5)
         t (/ j n)
@@ -56,12 +62,12 @@
     y))
 
 (defn pin-positions
-  "Instance pin positions in canvas-space"
+  "Instance pin positions in canvas-space."
   [node-cache instance]
   (let [{[w h] :size} (aabb instance)
         {input-types  :inputs
-         output-types :outputs} (->> instance 
-                                     :full-path 
+         output-types :outputs} (->> instance
+                                     :full-path
                                      (get-node node-cache)
                                      :model
                                      :metadata)

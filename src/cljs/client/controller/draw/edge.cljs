@@ -36,7 +36,6 @@
         in-instance         (get-instance  node-graph in-id)
         {in-pins  :inputs } (pin-positions node-cache in-instance)
         in-pin-position     (get in-pins in-pin)]
-
     (draw-edge-curve ctx out-pin-position in-pin-position)))
 
 (defn draw-edges [ctx node-cache node-graph]
