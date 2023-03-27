@@ -48,4 +48,9 @@
                                  cursor       [x y 0]
                                  displacement (mapv - cursor @mouse-down-origin_)]
                              (reset! mouse-down-origin_ cursor)
-                             (swap! camera_ #(cam/translate % displacement)))))}])))
+                             (swap! camera_ #(cam/translate % displacement)))))
+
+        :on-wheel      (fn [ev]
+                         ; TODO: Zoom relative to cursor position
+                         (let [dz (.-deltaY ev)]
+                           (swap! camera_ #(cam/zoom % dz))))}])))

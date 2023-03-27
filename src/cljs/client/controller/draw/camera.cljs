@@ -1,4 +1,5 @@
-(ns client.controller.draw.camera)
+(ns client.controller.draw.camera
+  (:require [client.controller.draw.util :refer [clamp]]))
 
 
 (defn make-camera [translation aspect near far]
@@ -30,5 +31,14 @@
          aspect      :aspect
          near        :near
          far         :far        } camera
-        new-translation            (mapv + displacement translation)]
-    (make-camera new-translation aspect near far)))
+        translation*               (mapv + displacement translation)]
+    (make-camera translation* aspect near far)))
+
+(defn zoom [camera dz]
+  (let [{translation :translation
+         aspect      :aspect
+         near        :near
+         far         :far        } camera
+        [dx dy dz*]                (mapv + [0 0 dz] translation)
+        translation*               [dx dy (clamp dz* near far)]]
+    (make-camera translation* aspect near far)))
