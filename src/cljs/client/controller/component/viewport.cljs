@@ -4,9 +4,12 @@
             [client.controller.draw.core :refer [draw]]))
 
 
+;(def ?drag-sensitivity 0.8)
+(def ?zoom-sensitivity 0.01)
+
 (defn viewport [_node-cache_ _node-graph_]
-  (let [canvas_ (r/atom nil)
-        camera_ (r/atom nil)
+  (let [canvas_            (r/atom nil)
+        camera_            (r/atom nil)
         camera-control?_   (r/atom false)
         mouse-down-origin_ (r/atom [0 0 0])]
     (fn [node-cache_ node-graph_]
@@ -52,5 +55,6 @@
 
         :on-wheel      (fn [ev]
                          ; TODO: Zoom relative to cursor position
-                         (let [dz (.-deltaY ev)]
+                         (let [dz (.-deltaY ev)
+                               dz (* dz ?zoom-sensitivity)]
                            (swap! camera_ #(cam/zoom % dz))))}])))
