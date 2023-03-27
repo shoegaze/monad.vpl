@@ -36,12 +36,16 @@
                          (let [x (.-clientX ev)
                                y (.-clientY ev)]
                            (reset! camera-control?_ true)
-                           (reset! mouse-down-origin_ [x y 0])
-                           ))
-        :on-mouse-up    #(reset! camera-control?_ false)
+                           (reset! mouse-down-origin_ [x y 0])))
+
+        :on-mouse-up   (fn [_ev]
+                         (reset! camera-control?_ false))
+
         :on-mouse-move (fn [ev]
                          (when @camera-control?_
                            (let [x (.-clientX ev)
                                  y (.-clientY ev)
-                                 displacement (mapv - [x y 0] @mouse-down-origin_)]
+                                 cursor       [x y 0]
+                                 displacement (mapv - cursor @mouse-down-origin_)]
+                             (reset! mouse-down-origin_ cursor)
                              (swap! camera_ #(cam/translate % displacement)))))}])))
