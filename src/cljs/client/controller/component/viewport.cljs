@@ -8,7 +8,7 @@
   (let [canvas_ (r/atom nil)
         camera_ (r/atom nil)
         camera-control?_   (r/atom false)
-        mouse-down-origin_ (r/atom [0 0])]
+        mouse-down-origin_ (r/atom [0 0 0])]
     (fn [node-cache_ node-graph_]
       (when-some [c @canvas_]
         (when-not @camera_
@@ -36,12 +36,12 @@
                          (let [x (.-clientX ev)
                                y (.-clientY ev)]
                            (reset! camera-control?_ true)
-                           (reset! mouse-down-origin_ [x y])
+                           (reset! mouse-down-origin_ [x y 0])
                            ))
         :on-mouse-up    #(reset! camera-control?_ false)
         :on-mouse-move (fn [ev]
                          (when @camera-control?_
                            (let [x (.-clientX ev)
                                  y (.-clientY ev)
-                                 displacement (mapv - [x y] @mouse-down-origin_)]
+                                 displacement (mapv - [x y 0] @mouse-down-origin_)]
                              (swap! camera_ #(cam/translate % displacement)))))}])))
