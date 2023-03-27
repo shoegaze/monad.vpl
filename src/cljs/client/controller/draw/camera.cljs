@@ -13,14 +13,22 @@
         height (.-height canvas)
         half-extent (mapv #(/ % 2.0) [width height])
         ; Camera origin
-        {[dx dy dz] :translation} camera
+        {[rx ry rz] :translation} camera
         ; Viewport center
-        [cx cy]     (mapv + [dx dy] half-extent)]
+        [cx cy]     (mapv + [rx ry] half-extent)]
     (doto ctx
       (.translate (+ cx) (+ cy))
 
       ; TODO: Scale ~ tan(dz) ?
-      (.scale     (/ dz) (/ dz))
-      (.translate (- dx) (- dy))
+      (.scale     (/ rz) (/ rz))
+      (.translate (- rx) (- ry))
 
       (.translate (- cx) (- cy)))))
+
+(defn translate [camera displacement]
+  (let [{translation :translation
+         aspect      :aspect
+         near        :near
+         far         :far        } camera
+        new-translation            (mapv + displacement translation)]
+    (make-camera new-translation aspect near far)))
