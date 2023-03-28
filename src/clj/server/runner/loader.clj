@@ -22,7 +22,7 @@
 (defn- valid-view? [node-view]
   true)
 
-(defn- load-node! [node-cache package node-file]
+(defn- load-node! [node-cache_ package node-file]
   (let [meta-edn   (-> node-file
                        (io/file "node.edn")
                        slurp
@@ -50,29 +50,29 @@
       (if (valid-model? node-model)
         (do
           (timbre/warn "> Node model { full-path:" full-path "} loaded without validation!")
-          (swap! node-cache add-model node-model))
+          (swap! node-cache_ add-model node-model))
         (timbre/error "> Could not load node model"))
 
       (if (valid-view? node-view)
         (do
           (timbre/warn "> Node view { full-path:" full-path "} loaded without validation!")
-          (swap! node-cache add-view  node-view))
+          (swap! node-cache_ add-view  node-view))
         (timbre/error "> Could not load node view")))))
 
 ; TODO: Recursively read packages until max-depth
-(defn- load-package! [node-cache package]
+(defn- load-package! [node-cache_ package]
   (doseq [node (.listFiles package)
           :when (.isDirectory node)]
     (timbre/info "  *" (.getName node))
-    (load-node! node-cache package node)))
+    (load-node! node-cache_ package node)))
 
-(defn load-nodes! [node-cache packages-path]
+(defn load-nodes! [node-cache_ packages-path]
   (let [packages-dir (io/file packages-path)
         packages     (.listFiles packages-dir)]
     (doseq [package packages
             :when (.isDirectory package)]
       (timbre/info " *" (.getName package))
-      (load-package! node-cache package))))
+      (load-package! node-cache_ package))))
 
 
 (defn- parse-graph [graph-str]
@@ -82,7 +82,7 @@
 (defn- valid-graph? [graph]
   true)
 
-(defn load-graph! [_node-cache node-graph graph-file]
+(defn load-graph! [node-graph_ graph-file]
   (timbre/warn "Loading graph:" (.toString graph-file) "without validation!")
 
   (let [; TODO: Validate graph schema
@@ -94,5 +94,5 @@
     (if (valid-graph? graph-edn)
       (do
         (timbre/warn "> Graph loaded:" graph-edn)
-        (reset! node-graph graph-edn))
+        (reset! node-graph_ graph-edn))
       (timbre/error "> Graph could not be loaded!"))))

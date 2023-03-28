@@ -2,21 +2,21 @@
   (:require [reagent.core :as r]))
 
 
-(defn sidebar [_node-cache]
-  (let [selected-node (r/atom nil)]
-    (fn [node-cache]
+(defn sidebar [_node-cache_]
+  (let [selected-node_ (r/atom nil)]
+    (fn [node-cache_]
       [:div.sidebar
        [:h1.sidebar-title "Palette"]
        [:div.sidebar-container
-        (when-let [cache (:cache @node-cache)]
+        (when-some [cache (:cache @node-cache_)]
           (for [[id node] cache
                 :let [full-path (-> node :model :full-path)
                       on-click  (fn []
-                                  (reset! selected-node node))]]
+                                  (reset! selected-node_ node))]]
             ^{:key id} [:input.sidebar-entry {:type "button"
                                               :value full-path
                                               :on-click on-click}]))]
-       (when-let [node @selected-node]
+       (when-some [node @selected-node_]
          (let [node-model (:model node)
                {full-path :full-path
                 {:keys [tags description]} :metadata} node-model]

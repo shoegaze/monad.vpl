@@ -20,9 +20,9 @@
 (defmethod event-msg-handler :vpl/get-nodes [{:keys [?reply-fn]}]
   (timbre/info "Server event: :vpl/get-nodes")
   (when ?reply-fn
-    (?reply-fn @state/node-cache)))
+    (?reply-fn @state/node-cache_)))
 
 (defmethod event-msg-handler :vpl/get-graph [{:keys [?reply-fn]}]
   (timbre/info "Server event: :vpl/get-graph")
   (when ?reply-fn
-    (?reply-fn @state/node-graph)))
+    (?reply-fn @state/node-graph_)))
