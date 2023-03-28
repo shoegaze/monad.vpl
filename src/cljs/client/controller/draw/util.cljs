@@ -5,8 +5,11 @@
 ; HACK:
 (def ?instance-frame-size [100 100])
 
-(defonce pi js/Math.PI)
-(defonce two-pi (* 2.0 pi))
+(def pi js/Math.PI)
+(def two-pi (* 2.0 pi))
+
+(defn clamp [value min max]
+  (js/Math.min (js/Math.max value min) max))
 
 
 (defn clear-canvas [ctx]
