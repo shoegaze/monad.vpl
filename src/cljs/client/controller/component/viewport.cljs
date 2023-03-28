@@ -15,7 +15,8 @@
     (fn [node-cache_ node-graph_]
       (when-some [c @canvas_]
         (when-not @camera_
-          (let [translation [0 0 1]                         ; TODO: Calculate z where instance size ~ raw-size
+          (let [; TODO: Calculate z where instance size ~ raw-size
+                translation [0 0 1]
                 width       (.-width c)
                 height      (.-height c)
                 aspect      (/ width height)
@@ -48,8 +49,10 @@
                          (when @camera-control?_
                            (let [x (.-clientX ev)
                                  y (.-clientY ev)
+                                 {[_ _ cz] :translation} @camera_
                                  cursor       [x y 0]
-                                 displacement (mapv - cursor @mouse-down-origin_)]
+                                 displacement (mapv - @mouse-down-origin_ cursor)
+                                 displacement (map #(* cz %) displacement)]
                              (reset! mouse-down-origin_ cursor)
                              (swap! camera_ #(cam/translate % displacement)))))
 
